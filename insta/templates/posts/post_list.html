@@ -1,0 +1,37 @@
+{% extends "posts/base.html" %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="card">
+            <div class="card_header">
+                <div class="profile_image">
+                    <!-- <img src="{{ post.author.profile.image.url }}"> -->
+                </div>
+                <div class="post_info">
+                    <div class="post_name">{{post.author}}</div>
+                </div>
+            </div>
+            <div class="post_image">
+                {% if post.image %}
+                    <img src="{{post.image.url}}" alt="">
+                {% endif %}
+            </div>
+            <div class="engage">
+                <a href=""><i class="far fa-heart"></i></a>
+                <a href=""><i class="far fa-comment"></i></a>
+                <a href=""><i class="far fa-share-square"></i></a>
+                <a href=""><i class="far fa-bookmark"></i></a>
+            </div>
+            <div class="like">
+                <a href="">24</a>
+            </div>
+            <div class="caption">
+                <a href=""><h2>{{post.author}}</h2></a>
+                <span><p>{{post.caption}}</p></span>
+            </div>
+            <div class="time_posted">
+                {{ post.created_date | timesince }} ago
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
