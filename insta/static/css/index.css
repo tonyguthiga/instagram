@@ -1,0 +1,175 @@
+
+body{
+    background-color: #ffff;
+    overflow-x: hidden;
+}
+nav{
+    background-color: rgb(243, 239, 239);
+    border-bottom: 1px solid #999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+.navigation{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    padding: 20px 20px;
+    flex-wrap: wrap;
+}
+.navigation a{
+    color: #111;
+}
+.instalogo{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 30%;
+}
+.instalogo a{
+    font-size: 25px;
+    padding-left: 10px;
+}
+.v1{
+    border-left: 1.5px solid #111;
+    height: 30px;
+    margin-left: 20px;
+}
+.contact_icons{
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+}
+.search_bar{
+    display: flex;
+    width: 30%;
+    position: absolute;
+    justify-content: center;
+    border-radius: 3px;
+    color: #999;
+    text-align: center;
+    cursor: text;
+}
+.search_bar a{
+    font-size: 25px;
+    padding-left: 15px;
+}
+.content_container{
+    background-color: #FAFAFA;
+    padding-top: 50px;
+    position: absolute;
+    width: 100%;
+    left: 0px;
+    top: 72px;
+}
+.card{
+    background-color: #fff;
+    margin: 0 auto;
+    width: 614px;
+    height: auto;
+    border: 0.8px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 60px;
+}
+.card_header{
+    padding: 10px;
+}
+.card_header a{
+    text-decoration: none;
+    color: black;
+}
+.profile_image{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    border: 0 solid #000;
+    border-radius: 50%;
+}
+.post_info{
+    display: inline-block;
+    padding-left: 15px;
+}
+.post_name{
+    font-size: 14px;
+    color: #111;
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+}
+.post_image img{
+    width: 100%;
+}
+.engage{
+    display: inline-block;
+    width: 100%;
+    margin: 4px 0px 0px;
+    padding: 0px 16px;
+}
+.engage a{
+    padding: 7px;
+    font-size: 25px;
+    color: dimgray;
+    font-weight: 600;
+}
+.fa-bookmark{
+    float: right;
+    margin-right: 35px;
+}
+.like{
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #111;
+    margin: 0px 0px 8px;
+    padding: 0px 20px;
+}
+.caption{
+    display: inline-block;
+    width: 100%;
+    padding: 0px 16px;
+}
+.caption a{
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    color: #000;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: -5px;
+}
+.caption span{
+    font-size: 15px;
+    font-weight: 500;
+    color: #111;
+    display: inline-block;
+    margin-right: 16px;
+}
+.time_posted{
+    font-size: 10px;
+    font-weight: 300;
+    color: #111;
+    padding: 4px 16px;
+    text-transform: uppercase;
+}
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+font-size: 2.5rem;
+}
