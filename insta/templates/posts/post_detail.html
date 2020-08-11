@@ -1,0 +1,48 @@
+{% extends "posts/base.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card_header">
+            <div class="profile_image">
+                <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+            </div>
+            <div class="post_info">
+                <div class="post_name">{{object.author}}</div>
+            </div>
+        </div>
+        <div class="post_image">
+            {% if post.image %}
+                <a href="{% url 'post-detail' post.id %}"><img src="{{object.image.url}}" alt=""></a>
+            {% endif %}
+        </div>
+        <div class="engage">
+            <a href="{% url 'like' post.id %}"><i class="far fa-heart"></i></a>
+            <a href="{% url 'comment' post.id %}"><i class="far fa-comment"></i></a>
+            <a href=""><i class="far fa-bookmark"></i></a>
+        </div>
+        <div class="like">
+            <p>{{likes|length}} likes</p>
+            <p> {{post.comment.count}} comments </p>
+            
+            {% for comment in comments %}
+                {% if comment.image_id == image.id%}
+                    <h5><strong>{{comment.comment_owner}}</strong> {{comment.comment}}</h5>
+                    <hr>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="caption">
+            <h2>{{object.author}}</h2>
+            <span><p>{{object.caption}}</p></span>
+        </div>
+        <div class="time_posted">
+            {{ object.created_date | timesince }} ago
+        </div>
+        {% if object.author == user %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
