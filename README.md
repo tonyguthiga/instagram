@@ -2,7 +2,7 @@
 * Instachat.
 
 # Description.
-This a clone of Instagram.
+This is an Instagram-clone application which allows users to create account and post images.
 
 # Getting Started.
 Clone this repository to your local machine and install all the extensions listed in the requirements.txt file.
