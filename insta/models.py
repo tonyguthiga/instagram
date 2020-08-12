@@ -6,7 +6,7 @@ from django.urls import reverse
 # Create your models here.
 class Post(models.Model):
     author = models.ForeignKey('auth.User',on_delete=models.CASCADE)
-    image = models.ImageField()
+    image = models.ImageField(default=None, blank=True, upload_to = 'posts/')
     caption = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
 
@@ -14,18 +14,7 @@ class Post(models.Model):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return str(self.name)
-
-    def save_image(self):
-        self.save()
-
-    def delete_image(self):
-        self.delete()
-
-    @classmethod
-    def get_profile_images(cls, profile):
-        images = Image.objects.filter(profile__pk=profile)
-        return images
+        return str(self.caption)
 
 class Likes(models.Model):
     liker = models.ForeignKey(User, on_delete=models.CASCADE)
