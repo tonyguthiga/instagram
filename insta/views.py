@@ -27,6 +27,7 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     template_name = 'posts/post_form.html'
     context_object_name = 'posts'
     fields = ['image','caption']
+    success_url = '/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
