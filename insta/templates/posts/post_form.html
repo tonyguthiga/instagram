@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <fieldset class="form-group">
                         <legend class="border-bottom mb-4">Upload</legend>
@@ -17,6 +17,6 @@
                 </form>
             </div>
             <div class="col-md-4"></div>
-    </div>
+        </div>
     </div>
 {% endblock %}
