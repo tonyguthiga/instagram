@@ -1,0 +1,31 @@
+{% extends "posts/base.html" %}
+
+{% block content %}
+<div class="container ">
+    <div class="row">
+        {% if results %}
+            {% for result in results %}
+            <div class="row">
+                {% if post.image %}
+                    <div class="profile_image">
+                        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                    </div>
+                {% else %}
+                    <img src="/media/default.jpg" alt="avatar">
+                {% endif %}
+            </div>
+      <br>
+                <ul style="list-style: none">
+                  <li style="list-style: none"><a class="btn btn-primary" href="">View Profile</a></li>
+                  <li class="owner">{{result.profile.owner}} </li>
+
+                </ul>
+            {% endfor %}
+        {% else %}
+            <div class="col-md-12 text-center">
+                <h4 class="font1">Not found </h4>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
