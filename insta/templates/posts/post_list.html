@@ -5,33 +5,40 @@
         <div class="card">
             <div class="card_header">
                 <div class="profile_image">
-                    <!-- <img src="{{ post.author.profile.image.url }}"> -->
+                    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
                 </div>
                 <div class="post_info">
-                    <div class="post_name">{{post.author}}</div>
+                    <div href="{% url 'profile' %}" class="post_name">{{post.author}}</div>
                 </div>
             </div>
             <div class="post_image">
                 {% if post.image %}
-                    <img src="{{post.image.url}}" alt="">
+                    <a href="{% url 'post-detail' post.id %}"><img src="{{ post.image.url }}" class="img-responsive d-block img-thumbnail" alt="Image" ></a>  
                 {% endif %}
             </div>
             <div class="engage">
-                <a href=""><i class="far fa-heart"></i></a>
-                <a href=""><i class="far fa-comment"></i></a>
-                <a href=""><i class="far fa-share-square"></i></a>
+                <a href="{% url 'like' post.id %}"><i class="far fa-heart"></i></a>
+                <a href="{% url 'comment' post.id %}"><i class="far fa-comment"></i></a>
                 <a href=""><i class="far fa-bookmark"></i></a>
             </div>
-            <div class="like">
-                <a href="">24</a>
-            </div>
             <div class="caption">
-                <a href=""><h2>{{post.author}}</h2></a>
+                <a href="{% url 'profile' %}"><h2>{{post.author}}</h2></a>
                 <span><p>{{post.caption}}</p></span>
             </div>
             <div class="time_posted">
                 {{ post.created_date | timesince }} ago
             </div>
+            <div class="like">
+                <p>{{likes|length}} likes</p>
+                <p> {{post.comment.count}} comment(s) </p>
+                <h5><strong>{{comment.comment_owner}}</strong> {{comment.comment}}</h5>
+                {% for comment in comments %}
+                    {% if comment.image_id == image.id%}
+                        <h5>{{comment.comment}}</h5>
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+            </div>        
         </div>
     {% endfor %}
 {% endblock %}
