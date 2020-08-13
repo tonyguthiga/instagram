@@ -13,22 +13,6 @@
         <div class="post_image">
             <img src="{{ object.image.url }}" class="img-responsive d-block img-thumbnail" alt="Image">
         </div>
-        <div class="engage">
-            <a href=""><i class="far fa-heart"></i></a>
-            <a href=""><i class="far fa-comment"></i></a>
-            <a href=""><i class="far fa-bookmark"></i></a>
-        </div>
-        <div class="like">
-            <p>{{likes|length}} likes</p>
-            <p> {{post.comment.count}} comments </p>
-            
-            {% for comment in comments %}
-                {% if comment.image_id == image.id%}
-                    <h5><strong>{{comment.comment_owner}}</strong> {{comment.comment}}</h5>
-                    <hr>
-                {% endif %}
-            {% endfor %}
-        </div>
         <div class="caption">
             <h2>{{object.author}}</h2>
             <span><p>{{object.caption}}</p></span>

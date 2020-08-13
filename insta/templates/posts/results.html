@@ -1,31 +1,26 @@
 {% extends "posts/base.html" %}
 
 {% block content %}
-<div class="container ">
-    <div class="row">
-        {% if results %}
-            {% for result in results %}
-            <div class="row">
-                {% if post.image %}
-                    <div class="profile_image">
-                        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-                    </div>
-                {% else %}
-                    <img src="/media/default.jpg" alt="avatar">
-                {% endif %}
-            </div>
-      <br>
-                <ul style="list-style: none">
-                  <li style="list-style: none"><a class="btn btn-primary" href="">View Profile</a></li>
-                  <li class="owner">{{result.profile.owner}} </li>
+    <div class="container">
 
-                </ul>
-            {% endfor %}
+        <div class="row">
+        {% if users%}
+            <h2>Found {{ users|length }} of searched term {{message}}</h2>
         {% else %}
-            <div class="col-md-12 text-center">
-                <h4 class="font1">Not found </h4>
-            </div>
+            <h2> Found 0 articles for the search term {{message}}</h2>
         {% endif %}
+    
+        </div>
+        <!--Looping through the images-->
+        <div class="container-fluid">
+        <div class="row">
+            {% for author in authors %}
+                <div class="profile_image">
+                    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                </div>
+                {{user.username}}
+            {% endfor %}
+        </div>
+        </div> 
     </div>
-</div>
 {% endblock %}

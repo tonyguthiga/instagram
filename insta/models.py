@@ -16,14 +16,25 @@ class Post(models.Model):
     def __str__(self):
         return str(self.caption)
 
+    @classmethod
+    def search_by_author(cls,author):
+        authors = Post.objects.filter(author__author__icontains=author)
+        return authors
+
+    @classmethod
+    def get_single_photo(cls,id):
+        image = cls.objects.get(pk=id)
+        return image
+
 class Likes(models.Model):
     liker = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     image = models.ForeignKey(Post, blank=True, on_delete=models.CASCADE,related_name='comment')
-    comment_owner = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
-    comment= models.TextField()
+    comment = models.CharField(max_length=150, blank=True)
+    date_commented = models.DateTimeField(default=timezone.now)
 
     def save_comment(self):
         self.save()
@@ -31,9 +42,12 @@ class Comment(models.Model):
     def delete_comment(self):
         self.delete()
 
+    class Meta:
+        ordering = ['-date_commented']
+
     @classmethod
-    def get_image_comments(cls, id):
-        comments = Comment.objects.filter(image__pk=id)
+    def get_comments(cls,id):
+        comments = cls.objects.filter(image__id=id)
         return comments
 
     def __str__(self):

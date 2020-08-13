@@ -18,7 +18,7 @@
             </div>
             <div class="engage">
                 <a href="{% url 'like' post.id %}"><i class="far fa-heart"></i></a>
-                <a href="{% url 'comment' post.id %}"><i class="far fa-comment"></i></a>
+                <a href="{% url 'newComment' post.id %}"><i class="far fa-comment"></i></a>
                 <a href=""><i class="far fa-bookmark"></i></a>
             </div>
             <div class="caption">
@@ -30,14 +30,7 @@
             </div>
             <div class="like">
                 <p>{{likes|length}} likes</p>
-                <p> {{post.comment.count}} comment(s) </p>
-                <h5><strong>{{comment.comment_owner}}</strong> {{comment.comment}}</h5>
-                {% for comment in comments %}
-                    {% if comment.image_id == image.id%}
-                        <h5>{{comment.comment}}</h5>
-                        <hr>
-                    {% endif %}
-                {% endfor %}
+                <a href="{% url 'comments' post.id %}"><p> {{post.comment.count}} comment(s) </p></a> 
             </div>        
         </div>
     {% endfor %}

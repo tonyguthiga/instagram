@@ -3,6 +3,7 @@ from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView,
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 
 urlpatterns = [
     path('', PostListView.as_view(), name='index'),
@@ -11,8 +12,10 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('like/<image_id>/', views.like, name='like'),
-    path('comment/<image_id>/', views.comment, name='comment'),
-    path('search/',views.search, name='search'),
+    url(r'new_comment/(\d+)/$' ,views.add_comment,name='newComment'),
+    url('comment/(\d+)/$' ,views.comments,name='comments'),
+    path('search/', views.search_user, name='search_results'),
+    
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
