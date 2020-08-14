@@ -1,17 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Comment, Likes
+from .models import Post, Comment
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 from .forms import CommentForm
 # Create your views here.
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post.id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
+
 def index(request):
     posts = Post.objects.all()
-    likes = Likes.objects.all()
-    return render(request, 'posts/post_list.html', {'posts':posts,'likes':likes})
-
+    return render(request, 'posts/post_list.html', {'posts':posts})
+    
 class PostListView(ListView):
     model = Post
     template_name = 'posts/post_list.html'
@@ -22,7 +28,12 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
     context_object_name = 'posts'
-    ordering = ['-created_date']
+
+    def get_context_data(self, *args, **kwargs):
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        context["total_likes"] = total_likes
+        ordering = ['-created_date']
     
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post 
@@ -63,14 +74,6 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-def like(request, image_id):
-    current_user = request.user
-    image = Post.objects.get(id=image_id)
-    new_like,created = Likes.objects.get_or_create(liker=current_user, image=image)
-    new_like.save()
-
-    return redirect('index')
 
 def comments(request,id):
     comments = Comment.get_comments(id)

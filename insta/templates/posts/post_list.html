@@ -17,7 +17,7 @@
                 {% endif %}
             </div>
             <div class="engage">
-                <a href="{% url 'like' post.id %}"><i class="far fa-heart" aria-hidden="true"></i></a>
+                <a href=""><i class="far fa-heart" aria-hidden="true"></i></a>
                 <a href="{% url 'newComment' post.id %}"><i class="far fa-comment"></i></a>
                 <a href=""><i class="far fa-bookmark"></i></a>
             </div>
@@ -31,6 +31,13 @@
             <div class="like">
                 <p></p>{{post.likes|length}} likes
                 <a href="{% url 'comments' post.id %}"><p> {{post.comment.count}} comment(s) </p></a> 
+
+                <br/><br/>
+                <hr>
+                <form action="{% url 'like_post' post.pk %}" method="POST">
+                    {%  csrf_token %}
+                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary">Like</button> - {{ total_likes }} likes
+                </form>
             </div>        
         </div>
     {% endfor %}

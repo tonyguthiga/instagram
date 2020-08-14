@@ -9,6 +9,10 @@ class Post(models.Model):
     image = models.ImageField(default=None, blank=True, upload_to = 'posts/')
     caption = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, related_name='Insta_post')
+
+    def total_likes(self):
+        return self.likes.count()
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
@@ -26,9 +30,6 @@ class Post(models.Model):
         image = cls.objects.get(pk=id)
         return image
 
-class Likes(models.Model):
-    liker = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
