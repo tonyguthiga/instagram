@@ -9,7 +9,8 @@ from .forms import CommentForm
 # Create your views here.
 def index(request):
     posts = Post.objects.all()
-    return render(request, 'posts/post_list.html', {'posts':posts})
+    likes = Likes.objects.all()
+    return render(request, 'posts/post_list.html', {'posts':posts,'likes':likes})
 
 class PostListView(ListView):
     model = Post

@@ -17,7 +17,7 @@
                 {% endif %}
             </div>
             <div class="engage">
-                <a href="{% url 'like' post.id %}"><i class="far fa-heart"></i></a>
+                <a href="{% url 'like' post.id %}"><i class="far fa-heart" aria-hidden="true"></i></a>
                 <a href="{% url 'newComment' post.id %}"><i class="far fa-comment"></i></a>
                 <a href=""><i class="far fa-bookmark"></i></a>
             </div>
@@ -29,7 +29,7 @@
                 {{ post.created_date | timesince }} ago
             </div>
             <div class="like">
-                <p>{{likes|length}} likes</p>
+                <p></p>{{post.likes|length}} likes
                 <a href="{% url 'comments' post.id %}"><p> {{post.comment.count}} comment(s) </p></a> 
             </div>        
         </div>

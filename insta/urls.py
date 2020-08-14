@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'new_comment/(\d+)/$' ,views.add_comment,name='newComment'),
     url('comment/(\d+)/$' ,views.comments,name='comments'),
     path('search/', views.search_user, name='search_results'),
+    path('like/<image_id>', views.like, name='like'),
     
 ]
 if settings.DEBUG:
