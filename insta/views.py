@@ -10,9 +10,10 @@ from django.http import HttpResponseRedirect
 from .forms import CommentForm
 # Create your views here.
 def LikeView(request, pk):
-    post = get_object_or_404(Post, id=request.POST.get('post.id'))
+    print(pk)
+    post = get_object_or_404(Post, id=pk)
     post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('post-detail', args=[str(pk)]))
+    return HttpResponseRedirect('/')
 
 def index(request):
     posts = Post.objects.all()
@@ -28,12 +29,14 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
     context_object_name = 'posts'
-
-    def get_context_data(self, *args, **kwargs):
+    ordering = ['-created_date']
+        
+    def get_context_data(self, args,*kwargs):
+        context = super(PostDetailView,self).get_context_data(**kwargs)
         stuff = get_object_or_404(Post, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
-        context["total_likes"] = total_likes
-        ordering = ['-created_date']
+        context['total_likes'] = total_likes
+        return context
     
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post 
@@ -97,15 +100,14 @@ def add_comment(request,id):
        return render(request,'posts/new_comment.html',{"form":form,"image":image})
  
 
-def search_user(request):
-    name = 'Search'
-    authors = Post.objects.all()
-    if 'author' in request.GET and request.GET['author']:
-        search_term = request.GET.get('author')
-        results = Post.search_by_author(search_term)
+def search_results(request):
+    if request.GET["username"]:
+        search_term = request.GET.get("username")
+        print(search_term)
+        searched_users = User.objects.filter(username__icontains = search_term)
         message = f"{search_term}"
-        
-        return render(request, '/posts/results.html', {'name':name, 'authors':results, 'message':message, 'authors':authors})
+        post = User.objects.all()
+        return render(request, 'posts/results.html', {'message':message, 'results':searched_users, 'post':post})
     else:
-        message = 'You havent searched yet'
-        return render(request, 'posts/results.html',{'message':message})
+        message = "You haven't searched for any term"
+        return render(request, 'posts/results.html', {'message':message})

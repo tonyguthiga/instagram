@@ -13,11 +13,11 @@
             </div>
             <div class="post_image">
                 {% if post.image %}
-                    <a href="{% url 'post-detail' post.id %}"><img src="{{ post.image.url }}" class="img-responsive d-block img-thumbnail" alt="Image" ></a>  
+                    <a href="{% url 'post-detail' post.id %}"><img src="{{ post.image.url }}" class="rex" alt="Image" ></a>  
                 {% endif %}
             </div>
             <div class="engage">
-                <a href=""><i class="far fa-heart" aria-hidden="true"></i></a>
+                <a href="/like/{{post.id}}"><i class="far fa-heart" aria-hidden="true"></i></a>
                 <a href="{% url 'newComment' post.id %}"><i class="far fa-comment"></i></a>
                 <a href=""><i class="far fa-bookmark"></i></a>
             </div>
@@ -29,15 +29,8 @@
                 {{ post.created_date | timesince }} ago
             </div>
             <div class="like">
-                <p></p>{{post.likes|length}} likes
+                <p></p>{{post.likes.count}} likes
                 <a href="{% url 'comments' post.id %}"><p> {{post.comment.count}} comment(s) </p></a> 
-
-                <br/><br/>
-                <hr>
-                <form action="{% url 'like_post' post.pk %}" method="POST">
-                    {%  csrf_token %}
-                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary">Like</button> - {{ total_likes }} likes
-                </form>
             </div>        
         </div>
     {% endfor %}
